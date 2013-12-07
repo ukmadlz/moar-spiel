@@ -1,0 +1,11 @@
+{
+	"name": "MusicHackDay",
+	"version": "0.0.1",
+	"description": "",
+	"dependencies": {
+		"express": "3.x",
+		"jade": "*",
+		"stylus": "*",
+		"nib": "*"
+	}
+}
