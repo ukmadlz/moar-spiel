@@ -1,0 +1,64 @@
+extend layout
+block content
+	script
+		$(document).ready(function(){
+			$.ajax({
+				url:'http://developer.echonest.com/api/v4/song/profile',
+				data:{
+					'api_key':'R9RBK9MF4OKHSIVRW',
+					'format': 'json',
+					'id':'SOCZMFK12AC468668F',
+					'bucket':'audio_summary'
+					},
+				success:function(data){
+					var song = data.response.songs[0];
+					var track;
+					track = window.tomahkAPI.Track(song.title,song.artist_name, {
+						width:300,
+						height:300,
+						disabledResolvers: [
+							"Officialfm", "Lastfm", "Jamendo", "Youtube", "Rdio", "SpotifyMetadata", "Deezer", "Exfm"
+						],
+						handlers: {
+							onloaded: function() {
+								console.log(track.connection+":\n  api loaded");
+							},
+							onended: function() {
+								console.log(track.connection+":\n  Song ended: "+track.artist+" - "+track.title);
+							},
+							onplayable: function() {
+								console.log(track.connection+":\n  playable");
+							},
+							onresolved: function(resolver, result) {
+								console.log(track.connection+":\n  Track found: "+resolver+" - "+ result.track + " by "+result.artist);
+							},
+							ontimeupdate: function(timeupdate) {
+								var currentTime = timeupdate.currentTime;
+								var duration = timeupdate.duration;
+								currentTime = parseInt(currentTime);
+								duration = parseInt(duration);
+
+								console.log(track.connection+":\n  Time update: "+currentTime + " "+duration);
+							},
+							onplay: function(data) {
+								console.log('PLAY');
+							}
+						}
+					});
+					$('#player').html(track.render());
+				}
+			});
+			$('#playPause').click(function(e){
+				e.preventDefault();
+				var song = $('#play').get(0);
+				if (song.paused)
+					song.play();
+				else
+					song.pause();
+			});
+		});
+	audio(controlspreload='auto' loop id='play')
+		source(src='/audio/PercussionXylop+SUP01_71_16.mp3' type='audio/mpeg')
+	div(id='player')
+	a(href='#' id='playPause')
+		|play/stop

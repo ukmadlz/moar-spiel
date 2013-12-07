@@ -25,7 +25,7 @@ function compile(str, path) {
     .set('filename', path)
     .use(nib())
 }
-app.set('views', __dirname + '/views')
+app.set('views', __dirname + '/application/views')
 app.set('view engine', 'jade')
 app.use(express.logger('dev'))
 app.use(stylus.middleware(
@@ -36,6 +36,12 @@ app.use(stylus.middleware(
 ))
 app.use(express.static(__dirname + '/public'));
 app.use(express.logger());
+
+// Index
+app.get('/', function (req, res) {
+	res.render('index',{
+	})
+});
 
 // Start Listening
 var port = process.env.PORT || 3000;
