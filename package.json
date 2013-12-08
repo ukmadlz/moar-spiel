@@ -1,7 +1,7 @@
 {
-	"name": "MusicHackDay",
+	"name": "MoarSpiel",
 	"version": "0.0.1",
-	"description": "",
+	"description": "Add more spiel",
 	"dependencies": {
 		"express": "3.x",
 		"jade": "*",
