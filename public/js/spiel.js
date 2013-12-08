@@ -26,7 +26,7 @@ $(document).ready(function(){
 			});
 			var track;
 			track = window.tomahkAPI.Track(song.title,song.artist_name, {
-				width:$(document).width(),
+				width:$('div.container').width(),
 				height:$(document).height(),
 				disabledResolvers: [
 					"Officialfm","Lastfm","Jamendo","Youtube","Rdio","SpotifyMetadata","Exfm"

@@ -185,18 +185,24 @@ block content
 				e.preventDefault();
 			});
 		});
-	form
-		label(for='artist')
-			input(id='artist' placeholder='Artist Name')
-			button(id='search')
-	ul(id='song-list')
-	ul(id='selected-earlier')
-		li
-			a(href='#')
-				| Black Sabbath
-		li
-			a(href='#')
-				| Alkaline Trio
-		li
-			a(href='#')
-				| Rick Astley
+	div(class='jumbotron')
+		form(role='form' class='form-inline')
+			div(class='form-group input-group')
+				label(for='artist')
+				input(id='artist' placeholder='Artist Name')
+				span(class='input-group-btn')
+					button(id='search' class='btn btn-default' type='button')
+						| Search!
+				p(class='help-block')
+					| Example block-level help text here.
+		ul(id='song-list')
+		ul(id='selected-earlier')
+			li
+				a(href='#')
+					| Black Sabbath
+			li
+				a(href='#')
+					| Alkaline Trio
+			li
+				a(href='#')
+					| Rick Astley
