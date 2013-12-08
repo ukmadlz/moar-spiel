@@ -9,11 +9,11 @@ $(document).ready(function(){
 			},
 		success:function(data){console.log(echonestid);
 			console.log(data.response);
-			var song = data.response.songs[0].audio_summary;
+			var song = data.response.songs[0];
 			var songDuration = parseInt(song.duration);
 			var songData = new Array();
 			$.ajax({
-				url: song.analysis_url,
+				url: song.audio_summary.analysis_url,
 				success:function(data){
 					$.each(data.sections,function(index,value){
 						var duration = parseInt(value.duration);
@@ -26,8 +26,9 @@ $(document).ready(function(){
 				}
 			});
 			var track;
-			//track = window.tomahkAPI.Track(song.title,song.artist_name, {
-				track = window.tomahkAPI.Track('Neon Knight','Black Sabbath', {
+			console.log(song.title);console.log(song.artist_name);
+			track = window.tomahkAPI.Track(song.title,song.artist_name, {
+			//track = window.tomahkAPI.Track('Neon Knight','Black Sabbath', {
 				width:$(document).width(),
 				height:$(document).height(),
 				disabledResolvers: [
