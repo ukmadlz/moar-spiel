@@ -15,11 +15,14 @@ $(document).ready(function(){
 				url: song.audio_summary.analysis_url,
 				success:function(data){
 					$.each(data.sections,function(index,value){
-						var duration = parseInt(value.duration);
-						for(i=1;i<=duration;i++)
+						if(index!=0)
 						{
-							var key = parseInt(value.start)+i
-							songData[key] = duration;
+							var duration = parseInt(value.duration);
+							for(i=1;i<=duration;i++)
+							{
+								var key = parseInt(value.start)+i
+								songData[key] = duration;
+							}
 						}
 					});
 				}
@@ -52,7 +55,7 @@ $(document).ready(function(){
 						currentTime = parseInt(currentTime);
 						duration = parseInt(duration);
 						if(duration>0&&currentTime>0){
-							if(songData[currentTime]>30)
+							if(songData[currentTime]<30)
 							{
 								//track.pause();
 								$('#player iframe').slideUp();

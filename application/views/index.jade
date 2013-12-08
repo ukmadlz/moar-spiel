@@ -104,7 +104,7 @@ block content
 		};
 		$(document).ready(function(){
 			// Detect artist search
-			$('#search').on('click submit',function(e){
+			$('#search,form').on('click submit',function(e){
 				var artistName = $('#artist').val();
 				if(artistName.length>3||(artistName.length%3)==0)
 				{
