@@ -8,7 +8,6 @@ $(document).ready(function(){
 			'bucket':'audio_summary'
 			},
 		success:function(data){console.log(echonestid);
-			console.log(data.response);
 			var song = data.response.songs[0];
 			var songDuration = parseInt(song.duration);
 			var songData = new Array();
@@ -26,9 +25,7 @@ $(document).ready(function(){
 				}
 			});
 			var track;
-			console.log(song.title);console.log(song.artist_name);
 			track = window.tomahkAPI.Track(song.title,song.artist_name, {
-			//track = window.tomahkAPI.Track('Neon Knight','Black Sabbath', {
 				width:$(document).width(),
 				height:$(document).height(),
 				disabledResolvers: [
@@ -43,7 +40,8 @@ $(document).ready(function(){
 						//console.log(track.connection+":\n  Song ended: "+track.artist+" - "+track.title);
 					},
 					onplayable: function() {
-						//console.log(track.connection+":\n  playable");
+						console.log(track.connection+":\n  playable");
+						track.play();
 					},
 					onresolved: function(resolver, result) {
 						//console.log(track.connection+":\n  Track found: "+resolver+" - "+ result.track + " by "+result.artist);

@@ -5,7 +5,7 @@ block content
 			// Detect artist search
 			$('#artist').on('change keyup',function(){
 				var artistName = $(this).val();
-				if(artistName.length>3&&(artistName.length%3)==0)
+				if(artistName.length>3||(artistName.length%3)==0)
 				{
 					$.ajax({
 						url:'http://developer.echonest.com/api/v4/artist/search',
@@ -39,8 +39,23 @@ block content
 					});
 				}
 			});
+			$('ul#selected-earlier li a').click(function(e){
+				console.log($(this).html());
+				$('#artist').val($(this).html()).change();
+				e.preventDefault();
+			});
 		});
 	form
 		label(for='artist')
 			input(id='artist' placeholder='Artist Name')
 	ul(id='song-list')
+	ul(id='selected-earlier')
+		li
+			a(href='#')
+				| Black Sabbath
+		li
+			a(href='#')
+				| Alkaline Trio
+		li
+			a(href='#')
+				| Rick Astley
