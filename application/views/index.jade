@@ -180,8 +180,10 @@ block content
 				e.preventDefault();
 			});
 			$('ul#selected-earlier li a').click(function(e){
-				console.log($(this).html());
-				$('#artist').val($(this).html()).change();
+				if($('#artist').val($(this).html()))
+				{
+					$('#search').click();
+				}
 				e.preventDefault();
 			});
 		});

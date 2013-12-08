@@ -29,7 +29,7 @@ $(document).ready(function(){
 				width:$('div.container').width(),
 				height:$(document).height(),
 				disabledResolvers: [
-					"Officialfm","Lastfm","Jamendo","Youtube","Rdio","SpotifyMetadata","Exfm"
+					"Officialfm","Lastfm","Jamendo","Rdio","SpotifyMetadata","Exfm"
 				],
 				handlers: {
 					onloaded: function() {
@@ -54,14 +54,14 @@ $(document).ready(function(){
 						if(duration>0&&currentTime>0){
 							if(songData[currentTime]>30)
 							{
-								track.pause();
+								//track.pause();
 								$('#player iframe').slideUp();
 								$('#play').get(0).play();
 								$('#play').get(0).playbackRate='2.0';
-								track.seek(currentTime+parseInt(songData[currentTime]));
+								//track.seek(currentTime+parseInt(songData[currentTime]));
 								//var timeSkip = parseInt(songData[currentTime]);
 								var timeSkip = 10;
-								setTimeout(function(){track.play()},(timeSkip*1000));
+								//setTimeout(function(){track.play()},(timeSkip*1000));
 							}
 							else
 							{
