@@ -57,6 +57,7 @@ $(document).ready(function(){
 								track.pause();
 								$('#player iframe').slideUp();
 								$('#play').get(0).play();
+								$('#play').get(0).playbackRate='2.0';
 								track.seek(currentTime+parseInt(songData[currentTime]));
 								//var timeSkip = parseInt(songData[currentTime]);
 								var timeSkip = 10;
