@@ -1,10 +1,111 @@
 extend layout
 block content
 	script
+		var dataObj = {
+		response: {
+		status: {
+		version: "4.2",
+		code: 0,
+		message: "Success"
+		},
+		songs: [
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOFDEJH13B1E7382E5",
+		artist_name: "Daft Punk",
+		title: "Around the world (Kenlou mix)"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOZTPFQ12B0B80BA7C",
+		artist_name: "Daft Punk",
+		title: "07. Superheroes"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOQICXY1373265000B",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOBFMZQ13E279A0048",
+		artist_name: "Daft Punk",
+		title: "Get Lucky"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOMSYPI13EEDF75168",
+		artist_name: "Daft Punk",
+		title: "Get Lucky"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOYNESM13F63A048E8",
+		artist_name: "Daft Punk",
+		title: "Get Lucky"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOOVXKE13EFD847DF2",
+		artist_name: "Daft Punk",
+		title: "Lose Yourself To Dance"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOJAOJL133A921021D",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOASBDB135CBB06DCB",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOPYLTW13F630808CA",
+		artist_name: "Daft Punk",
+		title: "Lose Yourself to Dance"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOWDKGV13FDF3A55A2",
+		artist_name: "Daft Punk",
+		title: "Instant Crush"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOTSVKD13152A70D43",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SODABAS13EEDF71EE1",
+		artist_name: "Daft Punk",
+		title: "Lose Yourself To Dance"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SOUSIKY137799644A7",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		},
+		{
+		artist_id: "ARF8HTQ1187B9AE693",
+		id: "SORKZSF13E9061D6DB",
+		artist_name: "Daft Punk",
+		title: "One More Time"
+		}
+		]
+		}
+		};
 		$(document).ready(function(){
 			// Detect artist search
-			$('#artist').on('change keyup',function(){
-				var artistName = $(this).val();
+			$('#search').on('click submit',function(e){
+				var artistName = $('#artist').val();
 				if(artistName.length>3||(artistName.length%3)==0)
 				{
 					$.ajax({
@@ -33,11 +134,50 @@ block content
 							});
 							$('#song-list img').remove();
 						},
+						error: function(e){
+							console.log(dataObj);
+							$.each(dataObj.response.artists,function(index,value){
+								$.ajax({
+									url:'http://developer.echonest.com/api/v4/song/search',
+									data:{
+										'api_key':'R9RBK9MF4OKHSIVRW',
+										'format': 'json',
+										'artist_id': value.id,
+									},
+									success: function(songData){
+										$.each(songData.response.songs,function(index2,value2){
+											$('#song-list').prepend('<li><a href="/play?id='+value2.id+'">'+value2.artist_name+': '+value2.title+'</a></li>');
+										});
+									}
+								});
+							});
+							$('#song-list img').remove();
+						},
+						timeout: function(e){
+							$.each(dataObj.response.artists,function(index,value){
+								$.ajax({
+									url:'http://developer.echonest.com/api/v4/song/search',
+									data:{
+										'api_key':'R9RBK9MF4OKHSIVRW',
+										'format': 'json',
+										'artist_id': value.id,
+									},
+									success: function(songData){
+										$.each(songData.response.songs,function(index2,value2){
+											$('#song-list').prepend('<li><a href="/play?id='+value2.id+'">'+value2.artist_name+': '+value2.title+'</a></li>');
+										});
+									}
+								});
+							});
+							$('#song-list img').remove();
+
+						},
 						beforeSend: function(){
 							$('#song-list').html('<img src="http://www.ajaxload.info/cache/FF/FF/FF/31/BB/B9/8-1.gif" />')
 						}
 					});
 				}
+				e.preventDefault();
 			});
 			$('ul#selected-earlier li a').click(function(e){
 				console.log($(this).html());
@@ -48,6 +188,7 @@ block content
 	form
 		label(for='artist')
 			input(id='artist' placeholder='Artist Name')
+			button(id='search')
 	ul(id='song-list')
 	ul(id='selected-earlier')
 		li
