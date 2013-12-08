@@ -85,6 +85,13 @@ $(document).ready(function(){
 			});
 			$('#player').html(track.render());
 			track.play();
+			$(document).keypress(function(e) {
+			    if(e.which == 13) {
+					track.pause();
+					var song = $('#play').get(0);
+					song.pause();
+			    }
+			});
 		}
 	});
 	$('#playPause').click(function(e){
