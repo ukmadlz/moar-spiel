@@ -4,7 +4,7 @@ $(document).ready(function(){
 		data:{
 			'api_key':'R9RBK9MF4OKHSIVRW',
 			'format': 'json',
-			'id':''+echonestid+'',
+			'id':echonestid,
 			'bucket':'audio_summary'
 			},
 		success:function(data){console.log(echonestid);
@@ -26,15 +26,17 @@ $(document).ready(function(){
 				}
 			});
 			var track;
-			track = window.tomahkAPI.Track(song.title,song.artist_name, {
-				width:300,
-				height:300,
+			//track = window.tomahkAPI.Track(song.title,song.artist_name, {
+				track = window.tomahkAPI.Track('Neon Knight','Black Sabbath', {
+				width:$(document).width(),
+				height:$(document).height(),
 				disabledResolvers: [
 					"Officialfm","Lastfm","Jamendo","Youtube","Rdio","SpotifyMetadata","Exfm"
 				],
 				handlers: {
 					onloaded: function() {
 						//console.log(track.connection+":\n  api loaded");
+						$('#player').css('height',$(document).height());
 					},
 					onended: function() {
 						//console.log(track.connection+":\n  Song ended: "+track.artist+" - "+track.title);
@@ -54,6 +56,7 @@ $(document).ready(function(){
 							if(songData[currentTime]>30)
 							{
 								track.pause();
+								$('#player iframe').slideUp();
 								$('#play').get(0).play();
 								track.seek(currentTime+parseInt(songData[currentTime]));
 								//var timeSkip = parseInt(songData[currentTime]);
@@ -62,6 +65,7 @@ $(document).ready(function(){
 							}
 							else
 							{
+								$('#player > *').slideDown();
 								$('#play').get(0).pause();
 							}
 							console.log(songDuration+' - '+songData[currentTime]+' - '+currentTime);
