@@ -38,8 +38,9 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.logger());
 
 // Index
-app.get('/', function (req, res) {
-	res.render('index',{
+app.get('/play', function (req, res) {
+	res.render('play',{
+		id:req.query.id
 	})
 });
 

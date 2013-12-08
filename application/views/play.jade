@@ -1,0 +1,10 @@
+extend layout
+block content
+	script
+		var echonestid = '#{id}';
+	script(src='/js/spiel.js')
+	audio(preload='auto' loop id='play')
+		source(src='/audio/PercussionXylop+SUP01_71_16.mp3' type='audio/mpeg')
+	div(id='player' hieght='300px' style='background:url(http://stream1.gifsoup.com/view2/1216816/more-cowbell-o.gif)')
+	//- a(href='#' id='playPause')
+	//- 	|play/stop
